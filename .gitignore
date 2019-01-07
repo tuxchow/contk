@@ -1,11 +1,7 @@
-*.pylintrc
-*.pyc
 .vscode
-*.swp
-**/output/
-**/tensorboard/
-**/model1/
 
+*.pyc
+*.swp
 *.egg-info
 __pycache__
 cache
