@@ -61,8 +61,8 @@ class PerlplexityMetric(MetricBase):
 			raise ValueError("Batch num is not matched.")
 
 		# perform random check to assert the probability is valid
-		checkid = random.randint(0, len(resp_length)-1)
-		checkrow = random.randint(0, resp_length[checkid]-2)
+		checkid = random.randint(0, gen_prob.shape[0]-1)
+		checkrow = random.randint(0, gen_prob.shape[1]-1)
 		if not np.isclose(np.sum(np.exp(gen_prob[checkid][checkrow])), 1):
 			print("gen_prob[%d][%d] exp sum is equal to %f." % (checkid, checkrow, \
 				np.sum(np.exp(gen_prob[checkid][checkrow]))))

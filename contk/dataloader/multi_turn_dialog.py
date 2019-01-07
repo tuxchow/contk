@@ -130,8 +130,7 @@ class MultiTurnDialog(Dataloader):
 			index (list): a list of specified index
 
 		Returns:
-			A dict at least contains ``post``, ``post_length``, ``resp``,
-			``resp_length``. See the example belows.
+			A dict at least contains ``session``. See the example belows.
 
 		Examples:
 			>>> dataloader.get_batch('train', 1)
@@ -149,12 +148,12 @@ class MultiTurnDialog(Dataloader):
 
 		for turn in range(max_turn_length):
 			res_turn = {}
-			res_turn['length'] = np.array(list(map(lambda d: len(d[turn]) if len(d) > turn else 0, \
+			res_turn['length'] = np.array(list(map(lambda d: len(d[turn]) if len(d) > turn else 1, \
 					batch_data)))
-			res_turn['content'] = np.ones((batch_size, np.max(res_turn['length'])), dtype=int) * \
+			res_turn['content'] = np.zeros((batch_size, np.max(res_turn['length'])), dtype=int) + \
 					self.pad_id
 			for idx, session in enumerate(batch_data):
-				if res_turn['length'][idx] > 0:
+				if res_turn['length'][idx] > 1:
 					content = session[turn]
 					res_turn['content'][idx, :len(content)] = content
 			res.append(res_turn)
@@ -283,13 +282,15 @@ class UbuntuCorpus(MultiTurnDialog):
 			less than `min_vocab_times`	will be replaced by `<unk>`. Default: 10.
 		max_sen_length (int): All sentences longer than `max_sen_length` will be shortened
 			to first `max_sen_length` tokens. Default: 50.
+		max_turn_length (int): All sessions longer than `max_turn_length` will be shortened
+			to first `max_turn_length` sentences. Default: 20.
 
 	Refer to :class:`.MultiTurnDialog` for attributes.
 
 	Todo:
 		* add references
 	'''
-	def __init__(self, file_path, min_vocab_times=10, max_sen_length=50, max_turn_length=10):
+	def __init__(self, file_path, min_vocab_times=10, max_sen_length=50, max_turn_length=20):
 		self._file_path = file_path
 		self._min_vocab_times = min_vocab_times
 		self._max_sen_length = max_sen_length
@@ -323,16 +324,14 @@ class UbuntuCorpus(MultiTurnDialog):
 		word2id = {w: i for i, w in enumerate(vocab_list)}
 		print("vocab list length = %d" % len(vocab_list))
 
-		line2id = lambda line: ([self.go_id] + list(map(lambda word: word2id[word] \
-					if word in word2id else self.unk_id, line)) + \
+		line2id = lambda line: ([self.go_id] + list(map(lambda word: word2id.get(word, self.unk_id), line)) + \
 					[self.eot_id])[:self._max_sen_length]
 
 		data = {}
 		for key in self.key_name:
 			data[key] = {}
-
-			data[key]['session'] = [list(map(line2id, line)) \
-					for line in origin_data[key]['session'][:self._max_turn_length]]
+			data[key]['session'] = [list(map(line2id, session[:self._max_turn_length])) \
+					for session in origin_data[key]['session']]
 			vocab = list(chain(*chain(*(origin_data[key]['session']))))
 			vocab_num = len(vocab)
 			oov_num = len(list(filter(lambda word: word not in word2id, vocab)))
