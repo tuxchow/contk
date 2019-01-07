@@ -1,10 +1,9 @@
 ## HRED -- a tensorflow implementation
 
-Seq2seq is a basic model for single turn dialog. Here, we implement seq2seq with attention mechanism. You can refer to the following papers for details:
+HRED is a basic model for multiple turn dialog. Here, we implement HRED with attention mechanism. You can refer to the following papers for details:
 
-Sutskever, I., Vinyals, O., & Le, Q. V. (2014). Sequence to sequence learning with neural networks. In *Advances in Neural Information Processing Systems*.
+Serban, I. V., Sordoni, A., Bengio, Y., Courville, A. C., & Pineau, J. (2016, February). Building End-To-End Dialogue Systems Using Generative Hierarchical Neural Network Models. In *AAAI* (Vol. 16, pp. 3776-3784).
 
-Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine translation by jointly learning to align and translate. In *International Conference on Learning Representation*.
 
 ### Require Packages
 
@@ -16,7 +15,7 @@ Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine translation by jointl
 
 * Downloading dataset and save it to ``./data``. (Dataset will be released soon.)
 * Execute ``python run.py`` to train the model.
-  * The default dataset is ``OpenSubtitles``. You can use ``--dataset`` to specify other ``dataloader`` class.
+  * The default dataset is ``UbuntuCorpus``. You can use ``--dataset`` to specify other ``dataloader`` class.
   * It don't use pretrained word vector by default setting. You can use ``--wvclass`` to specify ``wordvector`` class. For example: ``--wvclass gloves``
   * If you don't have GPUs, you can add `--cpu` for switching to CPU, but it may cost very long time.
 * You can view training process by tensorboard, the log is at `./tensorboard`.
@@ -104,17 +103,27 @@ Execute ``python run.py --mode test --restore best``
 The following output will be in `./output/[name]_[dev|test].txt`:
 
 ```
-bleu:	0.186838
-perplexity:	40.417562
-post:	if it were anyone but <unk> s son .
-resp:	<unk> is a great fighter .
-gen:	i don' t know what to do .
-post:	in the fortress , you will face more than the <unk> .
-resp:	you will face the beast , who is their leader .
-gen:	the ss s going to be crushed .
-post:	in a cave on the highest peak .
-resp:	without the <unk> , you will never be able to reach <unk> .
-gen:	when the boys s out , then we started .
+perplexity:     74.407300
+bleu:   0.089069
+post:   anyone knows why my stock oneiric exports env var <unk> I mean what is that used for? I know of $USER but not <unk> . My precise install doesn't export USERNAME <eos>
+resp:   looks like it used to be exported by <unk> but the line had the comment <unk> <unk> Is this <unk> so I guess it isn't surprising it is gone <eos>
+gen:    you <eos>
+post:   looks like it used to be exported by <unk> but the line had the comment <unk> <unk> Is this <unk> so I guess it isn't surprising it is gone <eos>
+resp:   thanks! How the heck did you figure that out? <eos>
+gen:    I have no idea what that is <eos>
+post:   thanks! How the heck did you figure that out? <eos>
+resp:   <unk> <eos>
+gen:    I <eos>
+post:   <unk> <eos>
+resp:   nice thanks! <eos>
+gen:    I <eos>
+
+post:   i set up my hd such that i have to type a passphrase to access it at boot. how can i remove that <unk> and just boot up normal. i did this at install, it works fine, just tired of having re       boots where i need to be at terminal
+resp:   backup your data, and re-install without encryption "might" be the easiest method <eos>
+gen:    you can install the ubuntu package <eos>
+post:   backup your data, and re-install without encryption "might" be the easiest method <eos>
+resp:   so you dont know, ok, anyone else? <eos> you are like, yah my mouse doesnt work, reinstall your os lolol what a joke <eos>
+gen:    I have no idea what you mean by the <eos>
 ```
 
 #### For developer
@@ -129,4 +138,4 @@ gen:	when the boys s out , then we started .
 
 ### Author
 
-[KE Pei](https://github.com/kepei1106)
+[Zhou Hao](https://github.com/tuxchow)
