@@ -131,6 +131,7 @@ class MultiTurnDialog(Dataloader):
 
 		Returns:
 			A dict at least contains ``session``. See the example belows.
+			A list contains each turn data of ``content`` and ``length`` as a dict, of which the length equals to turn.
 
 		Examples:
 			>>> dataloader.get_batch('train', 1)
@@ -148,7 +149,7 @@ class MultiTurnDialog(Dataloader):
 
 		for turn in range(max_turn_length):
 			res_turn = {}
-			res_turn['length'] = np.array(list(map(lambda d: len(d[turn]) if len(d) > turn else 1, \
+			res_turn['length'] = np.array(list(map(lambda d: len(d[turn]) if len(d) > turn else 0, \
 					batch_data)))
 			res_turn['content'] = np.zeros((batch_size, np.max(res_turn['length'])), dtype=int) + \
 					self.pad_id

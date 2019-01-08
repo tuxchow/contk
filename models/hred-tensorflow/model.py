@@ -163,7 +163,7 @@ class HredModel(object):
 			step_data['responses_length'] = data[turn+1]['length']
 			step_data['init_states'] = context_states
 			decoder_loss, _, _, context_states = self.step_decoder(sess, step_data)
-			length = np.sum(step_data['responses_length'] - 1)
+			length = np.sum(np.maximum(step_data['responses_length'] - 1, 0))
 			total_length += length
 			loss += decoder_loss * length
 		return loss / total_length
@@ -184,7 +184,7 @@ class HredModel(object):
 				step_data['responses_length'] = batched_data[turn+1]['length']
 				step_data['init_states'] = context_states
 				decoder_loss, _, context_states = self.step_decoder(sess, step_data, forward_only=True)
-				length = np.sum(step_data['responses_length'] - 1)
+				length = np.sum(np.maximum(step_data['responses_length'] - 1, 0))
 				total_length += length
 				loss += decoder_loss * length
 			batched_data = data.get_next_batch(key_name)
@@ -286,7 +286,7 @@ class HredModel(object):
 						'resp_length': step_data['responses_length'],
 						'gen_prob': step_data['gen_prob']
 						}
-				metric1.forward(metric1_data)
+				metric1.forward_pad(metric1_data)
 				valid_index = [idx for idx, length in 
 						enumerate(step_data['responses_length']) if length > 1]
 				for key in ['posts', 'responses', 'generations']:
