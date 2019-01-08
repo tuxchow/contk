@@ -75,7 +75,7 @@ Serban, I. V., Sordoni, A., Bengio, Y., Courville, A. C., & Pineau, J. (2016, Fe
 
 Execute ``tensorboard --logdir=./tensorboard``, you will see the plot in tensorboard pages:
 
-![tensorboard_plot_example](images/hred-plot-example.png)
+![hred_plot_example](images/hred-plot-example.png)
 
 Following plot are shown in this model:
 
@@ -90,7 +90,7 @@ Following plot are shown in this model:
 
 And text output:
 
-![tensorboard_text_example](images/hred-text-example.png)
+![hred_text_example](images/hred-text-example.png)
 
 Following text are shown in this model:
 
