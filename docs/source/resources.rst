@@ -320,12 +320,10 @@ SwitchboardCorpus
         and callees was constrained so that: (1) no two speakers would converse together more than
         once and (2) no one spoke more than once on a given topic.
 
-        We introduce the data processed by Zhao, Ran and Eskenazi.
-        They extract multiple responses for single context by retrieval
-
-        TODO:
-            Is the dataset same with the origin one? How do you select, split the dataset?
-            Is this dataset tokenized? Containing capital character? And more differences from the original dataset.
+        We introduce the data processed by Zhao, Ran and Eskenazi but filter out some instances in one of their two test sets ``multi_ref``.
+        ``multi_ref`` was constructed by extracting multiple responses for single context with retrieval method and annotation on the other test set.
+        As we ensure that any two consecutive utterances come from different speakers during training (by concatenating the original consecutive utterances from the same speakers in data pre-processing), we removed instances where the target speaker is the same as the last one in the context from ``multi_ref``.
+        Refer to the link https://github.com/snakeztc/NeuralDialog-CVAE to get more details.
 
     Statistic
         =========================================  =====  =====  =====
