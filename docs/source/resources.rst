@@ -320,10 +320,18 @@ SwitchboardCorpus
         and callees was constrained so that: (1) no two speakers would converse together more than
         once and (2) no one spoke more than once on a given topic.
 
-        We introduce the data processed by Zhao, Ran and Eskenazi but filter out some instances in one of their two test sets ``multi_ref``.
-        ``multi_ref`` was constructed by extracting multiple responses for single context with retrieval method and annotation on the other test set.
-        As we ensure that any two consecutive utterances come from different speakers during training (by concatenating the original consecutive utterances from the same speakers in data pre-processing), we removed instances where the target speaker is the same as the last one in the context from ``multi_ref``.
-        Refer to the link https://github.com/snakeztc/NeuralDialog-CVAE to get more details.
+        We introduce the data processed by Zhao, Ran and Eskenazi[4], which construct the set
+        ``multi_ref`` for one-to-many dialog evaluation (One context, multiple responses).
+        ``multi_ref`` was constructed by extracting multiple responses for single context
+        with retrieval method and annotation on the other test set. For the details, please refer
+        to [4].
+        
+        There are also two differences between our data with theirs:
+        * We ensure that any two consecutive utterances come from different speakers,
+          by concatenating the original consecutive utterances from the same speakers in data pre-processing.
+          (This is because we want to be compatible with other multi-turn dialog set.)
+        * To avoid the gap between training and test,  we have to remove some samples
+          from ``multi_ref``, where the target speaker is the same as the last one in the context.
 
     Statistic
         =========================================  =====  =====  =====
