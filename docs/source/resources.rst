@@ -236,14 +236,14 @@ OpenSubtitles
             Is this dataset tokenized? Containing capital character? And more differences from the original dataset.
 
     Statistic
-        ==============================        =========  =========  =========
-        Property                              Train      Dev        Test 
-        ==============================        =========  =========  =========
-        Numbers of Post/Response Pairs        1,144,949  20,000     10,000
-        Average Length (Post/Response)        9.08/9.10  9.06/9.13  9.04/9.05
+        ======================================  =========  =========  =========
+        Property                                Train      Dev        Test 
+        ======================================  =========  =========  =========
+        Numbers of Post/Response Pairs          1,144,949  20,000     10,000
+        Average Length (Post/Response)          9.08/9.10  9.06/9.13  9.04/9.05
         Vocabulary Size
         Frequency Vocabulary Size (times>=10)
-        ==============================        =========  =========  =========
+        ======================================  =========  =========  =========
 
     Reference
         [1] OpenSubtitles. http://opus.nlpl.eu/OpenSubtitles.php
