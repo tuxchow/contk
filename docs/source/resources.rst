@@ -394,9 +394,9 @@ Ubuntu
         The dataset has both the multi-turn property of conversations in the Dialog State Tracking Challenge datasets,
         and the unstructured nature of interactions from microblog services such as Twitter.
 
-        TODO:
-            Is the dataset same with the origin one? How do you select, split the dataset?
-            Is this dataset tokenized? Containing capital character? And more differences from the original dataset.
+        We build the dataset using the ubuntu-ranking-dataset-creator[1], without tokenization, lemmatization and stemming. 
+		The dataset contains contains capital character. The positive example probability is set to 1.0 for training set. 
+		Other settings are default.
 
     Statistic
         =============================  ============  ============  =======
