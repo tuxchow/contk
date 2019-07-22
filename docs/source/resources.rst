@@ -326,11 +326,16 @@ SwitchboardCorpus
         with retrieval method and annotation on the other test set. For the details, please refer
         to [4].
         
-        There are also two differences between our data with theirs:
+        We used their training set, dev set and test set. That is, capitalization, 
+        tokenization, splits of dataset and any other aspects of our data are the
+        same as theirs (in their version, utterances are lowercase and are not tokenized).
+
+        However, there are two differences between our data with theirs:
         * We ensure that any two consecutive utterances come from different speakers,
-          by concatenating the original consecutive utterances from the same speakers in data pre-processing.
+          by concatenating the original consecutive utterances from the same speakers in
+          data pre-processing of :class:`.dataloader.SwitchboardCorpus`.
           (This is because we want to be compatible with other multi-turn dialog set.)
-        * To avoid the gap between training and test,  we have to remove some samples
+        * To avoid the gap between training and test, we have to remove some samples
           from ``multi_ref``, where the target speaker is the same as the last one in the context.
 
     Statistic
