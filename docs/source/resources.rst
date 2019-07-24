@@ -395,7 +395,8 @@ Ubuntu
         and the unstructured nature of interactions from microblog services such as Twitter.
 
         We build the dataset using the ubuntu-ranking-dataset-creator[1], without tokenization, lemmatization and stemming. 
-		The dataset contains contains capital character. The positive example probability is set to 1.0 for training set. 
+		The dataset contains capital character. The positive example probability is set to 1.0 for training set. 
+		The examples for training/dev/test sets are set to 1,000,000/19,560/18,920 as default.
 		Other settings are default.
 
     Statistic
